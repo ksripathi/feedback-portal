@@ -15,6 +15,8 @@ addons:
       name: "ksripathi/feedback-portal"
       description: "Your project description here"
     notification_email: kammari.sripathi@gmail.com
-    build_command_prepend: "make clean"
+    build_command_prepend: "./configure"
     build_command: "make"
     branch_pattern: master
+script:
+  - make 
