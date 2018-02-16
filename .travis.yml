@@ -1,1 +1,18 @@
-#
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "Ew28QoUqQrcnUB87DZ9OygRr1/8yVfyP14UxSl1ihJYmxRxb/Liix6S7q8e2yCzDGFrrcpp44SKRso++XMNrkNOE3G/IswbFDB8hWuKv8hCXtRlZPgFvmCwKRcJ1dX5+6H1Nt7QR2Wex4ngaIWAMmXWWyJbTiRdQd+mUpwR+XF2jzx1iSQMgq+beH8ujD2TfrtCiBX1TrFNV8kRC++M1pOIC/YOqyph5Hap6Onuh0sNj6A0siqUqolNxDCeDZvGObONbXdTvYq/IftXVPU4thSjCGteeEifSENlSHxQ54LeWIoiYvt6hJaBV6CG3vhgLvGbzhrYdK+8cpoQKIMG7E9bGfSE9bF4Xg7QIgkcKuzFJzgL8BL1rfc+lIXcPMDPoE5hltbRuLRyuv0WcbpqH3cod2vp4FVbmC6RrTjvC2QkDeotjBR7ywNNVjXVqKzBi4Cohemq88H0TpMdUOiviYKp2uRLcvSOcx7+EIGromb8mE1Fnxkbt3DpA4Nhft29YBCzxayhbnhS/MKLsRRDJhXc4hhAxjk342fygBQ4Q+XYc8zm0CIunxkge+o8Xnhxrm327Dz0NBx1I8pX5WaSm5r9m4ifPC3en+QoXbrXQ5xzNZIy0Vhp5OrG+rFyGRG1yw7rrcVDcsXquyWEvlyEFUQFhLEt0FHKZ4NQ+dsW2FCI="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "ksripathi/feedback-portal"
+      description: "Your project description here"
+    notification_email: kammari.sripathi@gmail.com
+    build_command_prepend: "make clean"
+    build_command: "make"
+    branch_pattern: master
